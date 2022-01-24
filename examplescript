@@ -1,4 +1,4 @@
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlternateYT/rainbowuilibsource/main/libraryModule"))()
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlternateYT/rainbowuilib/main/module"))()
 
 lib.createWindow("Speed Changer")
 lib.setVersion(0.01)
