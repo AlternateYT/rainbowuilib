@@ -71,6 +71,7 @@ UILib.Name = "UILib"
 UILib.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 UILib.Enabled = false
 UILib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+UILib.ResetOnSpawn = false
 
 UILibFrame.Name = "UILibFrame"
 UILibFrame.Parent = UILib
