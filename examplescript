@@ -1,0 +1,50 @@
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlternateYT/rainbowuilibsource/main/libraryModule"))()
+
+lib.createWindow("Speed Changer")
+lib.setVersion(0.01)
+
+lib.createTab("Main")
+lib.createTab("Exit")
+
+lib.hideWindowSideButton("Exit")
+
+lib.createFrame("Main Frame")
+
+lib.showFrameSideButton("Main", "Main Frame")
+
+lib.createFrameText("Gameplay", "Main Frame")
+
+lib.createFrameButton("Walkspeed * 2", "Main Frame")
+
+game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Walkspeed * 2"].Activated:Connect(function()
+	game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed * 2
+end)
+
+lib.createFrameButton("Walkspeed / 2", "Main Frame")
+
+game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Walkspeed / 2"].Activated:Connect(function()
+	game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed / 2
+end)
+
+lib.createFrameSlider("Set Custom Walkspeed", 16, 100, "Main Frame")
+
+game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Set Custom Walkspeed"].sliderCounter.FocusLost:Connect(function()
+	wait(0.01)
+	game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = tonumber(script.Parent.UILibFrame["Main Frame"].InnerFrame["Set Custom Walkspeed"].sliderCounter.Text)
+end)
+
+game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Set Custom Walkspeed"].sliderCounter:GetPropertyChangedSignal("Text"):Connect(function()
+	if tonumber(game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Set Custom Walkspeed"].sliderCounter.Text) < 16 then
+		game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = 16
+	elseif tonumber(game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Set Custom Walkspeed"].sliderCounter.Text) > 100 then
+		game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = 100
+	elseif tonumber(game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Set Custom Walkspeed"].sliderCounter.Text) < 100 and tonumber(game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Set Custom Walkspeed"].sliderCounter.Text) > 16 then
+		game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = tonumber(game.Players.LocalPlayer.PlayerGui.UILib.UILibFrame["Main Frame"].InnerFrame["Set Custom Walkspeed"].sliderCounter.Text)
+	end
+end)
+
+lib.createFrameText("GUI", "Main Frame")
+
+lib.createFrameButton("Hide GUI", "Main Frame")
+
+lib.hideWindowFrameButton("Hide GUI", "Main Frame")
