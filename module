@@ -1,8 +1,3 @@
--- Gui to Lua
--- Version: 3.2
-
--- Instances:
-
 local UILib = Instance.new("ScreenGui")
 local UILibFrame = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
@@ -457,11 +452,6 @@ clickSound.Name = "clickSound"
 clickSound.SoundId = "rbxassetid://1245327595"
 clickSound.Parent = script
 
--- Gui to Lua
--- Version: 3.2
-
--- Instances:
-
 local frameToggleTemplate = Instance.new("Frame")
 local toggleText = Instance.new("TextLabel")
 local UIPadding = Instance.new("UIPadding")
@@ -471,8 +461,6 @@ local toggleSlider = Instance.new("TextButton")
 local UICorner_2 = Instance.new("UICorner")
 local UIStroke = Instance.new("UIStroke")
 local toggleValue = Instance.new("BoolValue")
-
---Properties:
 
 frameToggleTemplate.Name = "frameToggleTemplate"
 frameToggleTemplate.Parent = script
@@ -658,19 +646,28 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 		local toggleSlider = toggleBG:WaitForChild("toggleSlider")
 		local toggleValue = newToggle:WaitForChild("toggleValue")
 		
+		local currentlyTweening = false
+		
 		toggleBG.Activated:Connect(function()
 			clickSound:Play()
-			if toggleValue.Value == false then
+			if toggleValue.Value == false and currentlyTweening == false then
 				toggleValue.Value = true
 				local goalpos = toggleSlider.Position + UDim2.new(0.419, 0, 0, 0)
 				local tweenPosCoroutine = coroutine.wrap(function()
+					local function callback(state)
+						if state == Enum.TweenStatus.Completed then
+							currentlyTweening = false
+						end
+					end
 					local tweenPos = toggleSlider:TweenPosition(
 						goalpos,
 						Enum.EasingDirection.In,
 						Enum.EasingStyle.Sine,
 						0.75,
-						true
+						true,
+						callback
 					)
+					currentlyTweening = true
 					tweenPos:Play()
 				end)
 				tweenPosCoroutine()
@@ -685,17 +682,24 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 				local property = {BackgroundColor3= Color3.fromRGB(0, 255, 127)}
 				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
 				tweeningColor:Play()
-			elseif toggleValue.Value == true then
+			elseif toggleValue.Value == true and currentlyTweening == false then
 				toggleValue.Value = false
 				local goalpos = toggleSlider.Position - UDim2.new(0.419, 0, 0, 0)
 				local tweenPosCoroutine = coroutine.wrap(function()
+					local function callback(state)
+						if state == Enum.TweenStatus.Completed then
+							currentlyTweening = false
+						end
+					end
 					local tweenPos = toggleSlider:TweenPosition(
 						goalpos,
 						Enum.EasingDirection.In,
 						Enum.EasingStyle.Sine,
 						0.75,
-						true
+						true,
+						callback
 					)
+					currentlyTweening = true
 					tweenPos:Play()
 				end)
 				tweenPosCoroutine()
@@ -715,17 +719,24 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 		
 		toggleSlider.Activated:Connect(function()
 			clickSound:Play()
-			if toggleValue.Value == false then
+			if toggleValue.Value == false and currentlyTweening == false then
 				toggleValue.Value = true
 				local goalpos = toggleSlider.Position + UDim2.new(0.419, 0, 0, 0)
 				local tweenPosCoroutine = coroutine.wrap(function()
+					local function callback(state)
+						if state == Enum.TweenStatus.Completed then
+							currentlyTweening = false
+						end
+					end
 					local tweenPos = toggleSlider:TweenPosition(
 						goalpos,
 						Enum.EasingDirection.In,
 						Enum.EasingStyle.Sine,
 						0.75,
-						true
+						true,
+						callback
 					)
+					currentlyTweening = true
 					tweenPos:Play()
 				end)
 				tweenPosCoroutine()
@@ -740,17 +751,24 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 				local property = {BackgroundColor3= Color3.fromRGB(0, 255, 127)}
 				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
 				tweeningColor:Play()
-			elseif toggleValue.Value == true then
+			elseif toggleValue.Value == true and currentlyTweening == false then
 				toggleValue.Value = false
 				local goalpos = toggleSlider.Position - UDim2.new(0.419, 0, 0, 0)
 				local tweenPosCoroutine = coroutine.wrap(function()
+					local function callback(state)
+						if state == Enum.TweenStatus.Completed then
+							currentlyTweening = false
+						end
+					end
 					local tweenPos = toggleSlider:TweenPosition(
 						goalpos,
 						Enum.EasingDirection.In,
 						Enum.EasingStyle.Sine,
 						0.75,
-						true
+						true,
+						callback
 					)
+					currentlyTweening = true
 					tweenPos:Play()
 				end)
 				tweenPosCoroutine()
