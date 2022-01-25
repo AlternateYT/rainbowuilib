@@ -455,11 +455,96 @@ UIGradient.Parent = UIStroke
 
 clickSound.Name = "clickSound"
 clickSound.SoundId = "rbxassetid://1245327595"
-clickSound.Parent = playerGui:WaitForChild("UILib")
+clickSound.Parent = script
+
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local frameToggleTemplate = Instance.new("Frame")
+local toggleText = Instance.new("TextLabel")
+local UIPadding = Instance.new("UIPadding")
+local toggleBG = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local toggleSlider = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local UIStroke = Instance.new("UIStroke")
+local toggleValue = Instance.new("BoolValue")
+
+--Properties:
+
+frameToggleTemplate.Name = "frameToggleTemplate"
+frameToggleTemplate.Parent = script
+frameToggleTemplate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frameToggleTemplate.BackgroundTransparency = 1.000
+frameToggleTemplate.Position = UDim2.new(0, 0, 0.121546961, 0)
+frameToggleTemplate.Size = UDim2.new(0, 466, 0, 56)
+
+toggleValue.Parent = frameToggleTemplate
+toggleValue.Value = true
+toggleValue.Name = "toggleValue"
+
+toggleText.Name = "toggleText"
+toggleText.Parent = frameToggleTemplate
+toggleText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+toggleText.BackgroundTransparency = 1.000
+toggleText.Position = UDim2.new(0, 0, 0.125, 0)
+toggleText.Size = UDim2.new(0, 234, 0, 39)
+toggleText.Font = Enum.Font.PatrickHand
+toggleText.Text = "DxmonRxin's Toggle:"
+toggleText.TextColor3 = Color3.fromRGB(0, 0, 0)
+toggleText.TextScaled = true
+toggleText.TextSize = 25.000
+toggleText.TextWrapped = true
+toggleText.TextXAlignment = Enum.TextXAlignment.Right
+
+UIPadding.Parent = toggleText
+UIPadding.PaddingRight = UDim.new(0, 10)
+
+toggleBG.Name = "toggleBG"
+toggleBG.Parent = frameToggleTemplate
+toggleBG.BackgroundColor3 = Color3.fromRGB(0, 255, 127)
+toggleBG.Position = UDim2.new(0.527897, 0, 0.125, 0)
+toggleBG.Size = UDim2.new(0, 105, 0, 39)
+toggleBG.Font = Enum.Font.SourceSans
+toggleBG.Text = ""
+toggleBG.TextColor3 = Color3.fromRGB(0, 0, 0)
+toggleBG.TextSize = 14.000
+
+UICorner.CornerRadius = UDim.new(0, 20)
+UICorner.Parent = toggleBG
+
+toggleSlider.Name = "toggleSlider"
+toggleSlider.Parent = toggleBG
+toggleSlider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+toggleSlider.Position = UDim2.new(0.487115175, 0, 0.15384616, 0)
+toggleSlider.Size = UDim2.new(0, 45, 0, 26)
+toggleSlider.Font = Enum.Font.SourceSans
+toggleSlider.Text = ""
+toggleSlider.TextColor3 = Color3.fromRGB(0, 0, 0)
+toggleSlider.TextSize = 14.000
+
+UICorner_2.CornerRadius = UDim.new(0, 20)
+UICorner_2.Parent = toggleSlider
+
+UIStroke.Name = "UIStroke"
+UIStroke.Parent = toggleBG
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+UIStroke.Color = Color3.fromRGB(0, 0, 0)
+UIStroke.LineJoinMode = Enum.LineJoinMode.Round
+UIStroke.Thickness = 3
+UIStroke.Transparency = 0
+UIStroke.Enabled = true
+
+local UIStroke_2 = 	UIStroke:Clone()
+UIStroke_2.Parent = toggleSlider
 
 repeat wait() until UILib ~= nil
 
 -- SCRIPTS --
+
+local tweenService = game:GetService("TweenService")
 
 local lib = {}
 
@@ -559,6 +644,135 @@ function lib.createFrameText(labelName, frameName)
 		newLabel.Name = tostring(labelName)
 		newLabel.Text = tostring(labelName)
 		newLabel.Parent = frame:WaitForChild("InnerFrame")
+	end
+end
+
+function lib.createFrameToggle(toggleName, frameName, defaultBool)
+	if UILib.UILibFrame:FindFirstChild(tostring(frameName)) then
+		local frame = UILib.UILibFrame:WaitForChild(tostring(frameName))
+		local newToggle = frameToggleTemplate:Clone()
+		newToggle.Name = tostring(toggleName)
+		newToggle.Text = tostring(toggleName)
+		newToggle.Parent = frame:WaitForChild("InnerFrame")
+		local toggleBG = newToggle:WaitForChild("toggleBG")
+		local toggleSlider = toggleBG:WaitForChild("toggleSlider")
+		local toggleValue = newToggle:WaitForChild("toggleValue")
+		
+		toggleBG.Activated:Connect(function()
+			clickSound:Play()
+			if toggleValue.Value == false then
+				toggleValue.Value = true
+				local goalpos = toggleSlider.Position + UDim2.new(0.419, 0, 0, 0)
+				local tweenPosCoroutine = coroutine.wrap(function()
+					local tweenPos = toggleSlider:TweenPosition(
+						goalpos,
+						Enum.EasingDirection.In,
+						Enum.EasingStyle.Sine,
+						0.75,
+						true
+					)
+					tweenPos:Play()
+				end)
+				tweenPosCoroutine()
+				local tweenColor = TweenInfo.new(
+					0.75,
+					Enum.EasingStyle.Sine,
+					Enum.EasingDirection.In,
+					0,
+					false,
+					0
+				)
+				local property = {BackgroundColor3= Color3.fromRGB(0, 255, 127)}
+				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
+				tweeningColor:Play()
+			elseif toggleValue.Value == true then
+				toggleValue.Value = false
+				local goalpos = toggleSlider.Position - UDim2.new(0.419, 0, 0, 0)
+				local tweenPosCoroutine = coroutine.wrap(function()
+					local tweenPos = toggleSlider:TweenPosition(
+						goalpos,
+						Enum.EasingDirection.In,
+						Enum.EasingStyle.Sine,
+						0.75,
+						true
+					)
+					tweenPos:Play()
+				end)
+				tweenPosCoroutine()
+				local tweenColor = TweenInfo.new(
+					0.75,
+					Enum.EasingStyle.Sine,
+					Enum.EasingDirection.In,
+					0,
+					false,
+					0
+				)
+				local property = {BackgroundColor3= Color3.fromRGB(207, 207, 207)}
+				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
+				tweeningColor:Play()
+			end
+		end)
+		
+		toggleSlider.Activated:Connect(function()
+			clickSound:Play()
+			if toggleValue.Value == false then
+				toggleValue.Value = true
+				local goalpos = toggleSlider.Position + UDim2.new(0.419, 0, 0, 0)
+				local tweenPosCoroutine = coroutine.wrap(function()
+					local tweenPos = toggleSlider:TweenPosition(
+						goalpos,
+						Enum.EasingDirection.In,
+						Enum.EasingStyle.Sine,
+						0.75,
+						true
+					)
+					tweenPos:Play()
+				end)
+				tweenPosCoroutine()
+				local tweenColor = TweenInfo.new(
+					0.75,
+					Enum.EasingStyle.Sine,
+					Enum.EasingDirection.In,
+					0,
+					false,
+					0
+				)
+				local property = {BackgroundColor3= Color3.fromRGB(0, 255, 127)}
+				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
+				tweeningColor:Play()
+			elseif toggleValue.Value == true then
+				toggleValue.Value = false
+				local goalpos = toggleSlider.Position - UDim2.new(0.419, 0, 0, 0)
+				local tweenPosCoroutine = coroutine.wrap(function()
+					local tweenPos = toggleSlider:TweenPosition(
+						goalpos,
+						Enum.EasingDirection.In,
+						Enum.EasingStyle.Sine,
+						0.75,
+						true
+					)
+					tweenPos:Play()
+				end)
+				tweenPosCoroutine()
+				local tweenColor = TweenInfo.new(
+					0.75,
+					Enum.EasingStyle.Sine,
+					Enum.EasingDirection.In,
+					0,
+					false,
+					0
+				)
+				local property = {BackgroundColor3= Color3.fromRGB(207, 207, 207)}
+				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
+				tweeningColor:Play()
+			end
+		end)
+
+		if defaultBool == false then
+			toggleSlider.Position -= UDim2.new(0.419, 0, 0, 0)
+			toggleBG.BackgroundColor3 = Color3.fromRGB(207, 207, 207)
+			toggleValue.Value = false
+		end
 	end
 end
 
