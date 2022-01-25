@@ -1,3 +1,8 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
 local UILib = Instance.new("ScreenGui")
 local UILibFrame = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
@@ -59,6 +64,8 @@ local clickSound = Instance.new("Sound")
 
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
+
+--Properties:
 
 UILib.Name = "UILib"
 UILib.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -450,6 +457,11 @@ clickSound.Name = "clickSound"
 clickSound.SoundId = "rbxassetid://1245327595"
 clickSound.Parent = script
 
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
 local frameToggleTemplate = Instance.new("Frame")
 local toggleText = Instance.new("TextLabel")
 local UIPadding = Instance.new("UIPadding")
@@ -459,6 +471,8 @@ local toggleSlider = Instance.new("TextButton")
 local UICorner_2 = Instance.new("UICorner")
 local UIStroke = Instance.new("UIStroke")
 local toggleValue = Instance.new("BoolValue")
+
+--Properties:
 
 frameToggleTemplate.Name = "frameToggleTemplate"
 frameToggleTemplate.Parent = script
@@ -638,7 +652,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 		local frame = UILib.UILibFrame:WaitForChild(tostring(frameName))
 		local newToggle = frameToggleTemplate:Clone()
 		newToggle.Name = tostring(toggleName)
-		newToggle.Text = tostring(toggleName)
+		newToggle.toggleText.Text = tostring(toggleName)
 		newToggle.Parent = frame:WaitForChild("InnerFrame")
 		local toggleBG = newToggle:WaitForChild("toggleBG")
 		local toggleSlider = toggleBG:WaitForChild("toggleSlider")
