@@ -1,7 +1,7 @@
 # rainbowuilib
 UI Lib made by me in 1 day, the module is currently on version 0.01
 
-Module Version 0.01
+Module Version 0.02
 
 This UI Lib was designed for me only, however I soon decided shortly after starting to develop the UI Lib, I wanted to make it public, however I do not plan to make it
 open source at the moment.
