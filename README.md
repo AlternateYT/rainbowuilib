@@ -30,6 +30,8 @@ lib.createFrameText(<labelText - String>, <frameName - String>) Adds text with t
   
 lib.createFrameButton(<buttonText - String>, <frameName - String>) Adds a button with the following text to the following frame (Can be paired with lua)
   
+[NEW] lib.createFrameToggle(<toggleName - String>, <frameName - String>, <true/false - boolValue>) Adds a toggle with the following name to the following frame with the default bool, if true it'll be automatically set to true when you open the gui, if false it'll be automatically set to false when you open the gui. (Can be paired with lua)
+  
 lib.createFrameSlider(<sliderName, - String>, <minValue - Number>, <maxValue - Number>, <frameName - String>) Creates a slider with the following slider name, min value for the slider, max value for the slider, and puts it in the following frame (Can be paired with lua)
   
 lib.notificationOnHide = <true/false - boolValue> If set to true, it'll show a notification when the window is closed or hidden by a exit/hide function that allows you to re-open the gui when closed. If set to false, it won't show a notification when the window is closed or hidden by a exit/hide function.
