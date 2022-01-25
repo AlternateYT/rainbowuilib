@@ -645,9 +645,9 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 		local toggleBG = newToggle:WaitForChild("toggleBG")
 		local toggleSlider = toggleBG:WaitForChild("toggleSlider")
 		local toggleValue = newToggle:WaitForChild("toggleValue")
-		
+
 		local currentlyTweening = false
-		
+
 		toggleBG.Activated:Connect(function()
 			clickSound:Play()
 			if toggleValue.Value == false and currentlyTweening == false then
@@ -664,7 +664,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 						Enum.EasingDirection.In,
 						Enum.EasingStyle.Sine,
 						0.75,
-						true,
+						false,
 						callback
 					)
 					currentlyTweening = true
@@ -679,7 +679,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 					false,
 					0
 				)
-				local property = {BackgroundColor3= Color3.fromRGB(0, 255, 127)}
+				local property = {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}
 				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
 				tweeningColor:Play()
 			elseif toggleValue.Value == true and currentlyTweening == false then
@@ -696,7 +696,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 						Enum.EasingDirection.In,
 						Enum.EasingStyle.Sine,
 						0.75,
-						true,
+						false,
 						callback
 					)
 					currentlyTweening = true
@@ -711,12 +711,12 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 					false,
 					0
 				)
-				local property = {BackgroundColor3= Color3.fromRGB(207, 207, 207)}
+				local property = {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}
 				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
 				tweeningColor:Play()
 			end
 		end)
-		
+
 		toggleSlider.Activated:Connect(function()
 			clickSound:Play()
 			if toggleValue.Value == false and currentlyTweening == false then
@@ -733,7 +733,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 						Enum.EasingDirection.In,
 						Enum.EasingStyle.Sine,
 						0.75,
-						true,
+						false,
 						callback
 					)
 					currentlyTweening = true
@@ -748,7 +748,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 					false,
 					0
 				)
-				local property = {BackgroundColor3= Color3.fromRGB(0, 255, 127)}
+				local property = {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}
 				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
 				tweeningColor:Play()
 			elseif toggleValue.Value == true and currentlyTweening == false then
@@ -765,7 +765,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 						Enum.EasingDirection.In,
 						Enum.EasingStyle.Sine,
 						0.75,
-						true,
+						false,
 						callback
 					)
 					currentlyTweening = true
@@ -780,7 +780,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 					false,
 					0
 				)
-				local property = {BackgroundColor3= Color3.fromRGB(207, 207, 207)}
+				local property = {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}
 				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
 				tweeningColor:Play()
 			end
@@ -804,7 +804,7 @@ function lib.createTab(tabName)
 		tab.Name = tostring(tabName)
 		tab.Text = tostring(tabName)
 		tab.Parent = UILib.UILibFrame.sideBar.sideBarContents
-		
+
 		local tabUIStroke = Instance.new("UIStroke")
 		tabUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 		tabUIStroke.Color = Color3.fromRGB(0, 0, 0)
