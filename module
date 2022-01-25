@@ -640,7 +640,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 		local frame = UILib.UILibFrame:WaitForChild(tostring(frameName))
 		local newToggle = frameToggleTemplate:Clone()
 		newToggle.Name = tostring(toggleName)
-		newToggle.toggleText.Text = tostring(toggleName)
+		newToggle.toggleText.Text = tostring(toggleName)..":"
 		newToggle.Parent = frame:WaitForChild("InnerFrame")
 		local toggleBG = newToggle:WaitForChild("toggleBG")
 		local toggleSlider = toggleBG:WaitForChild("toggleSlider")
@@ -671,17 +671,20 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 					tweenPos:Play()
 				end)
 				tweenPosCoroutine()
-				local tweenColor = TweenInfo.new(
-					0.75,
-					Enum.EasingStyle.Sine,
-					Enum.EasingDirection.In,
-					0,
-					false,
-					0
-				)
-				local property = {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}
-				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
-				tweeningColor:Play()
+				local tweenColorCoroutine = coroutine.wrap(function()
+					local tweenColor = TweenInfo.new(
+						0.75,
+						Enum.EasingStyle.Sine,
+						Enum.EasingDirection.In,
+						0,
+						false,
+						0
+					)
+					local property = {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}
+					local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
+					tweeningColor:Play()
+				end)
+				tweenColorCoroutine()
 			elseif toggleValue.Value == true and currentlyTweening == false then
 				toggleValue.Value = false
 				local goalpos = toggleSlider.Position - UDim2.new(0.419, 0, 0, 0)
@@ -703,17 +706,20 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 					tweenPos:Play()
 				end)
 				tweenPosCoroutine()
-				local tweenColor = TweenInfo.new(
-					0.75,
-					Enum.EasingStyle.Sine,
-					Enum.EasingDirection.In,
-					0,
-					false,
-					0
-				)
-				local property = {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}
-				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
-				tweeningColor:Play()
+				local tweenColorCoroutine = coroutine.wrap(function()
+					local tweenColor = TweenInfo.new(
+						0.75,
+						Enum.EasingStyle.Sine,
+						Enum.EasingDirection.In,
+						0,
+						false,
+						0
+					)
+					local property = {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}
+					local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
+					tweeningColor:Play()
+				end)
+				tweenColorCoroutine()
 			end
 		end)
 
@@ -740,17 +746,20 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 					tweenPos:Play()
 				end)
 				tweenPosCoroutine()
-				local tweenColor = TweenInfo.new(
-					0.75,
-					Enum.EasingStyle.Sine,
-					Enum.EasingDirection.In,
-					0,
-					false,
-					0
-				)
-				local property = {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}
-				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
-				tweeningColor:Play()
+				local tweenColorCoroutine = coroutine.wrap(function()
+					local tweenColor = TweenInfo.new(
+						0.75,
+						Enum.EasingStyle.Sine,
+						Enum.EasingDirection.In,
+						0,
+						false,
+						0
+					)
+					local property = {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}
+					local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
+					tweeningColor:Play()
+				end)
+				tweenColorCoroutine()
 			elseif toggleValue.Value == true and currentlyTweening == false then
 				toggleValue.Value = false
 				local goalpos = toggleSlider.Position - UDim2.new(0.419, 0, 0, 0)
@@ -772,17 +781,20 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 					tweenPos:Play()
 				end)
 				tweenPosCoroutine()
-				local tweenColor = TweenInfo.new(
-					0.75,
-					Enum.EasingStyle.Sine,
-					Enum.EasingDirection.In,
-					0,
-					false,
-					0
-				)
-				local property = {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}
-				local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
-				tweeningColor:Play()
+				local tweenColorCoroutine = coroutine.wrap(function()
+					local tweenColor = TweenInfo.new(
+						0.75,
+						Enum.EasingStyle.Sine,
+						Enum.EasingDirection.In,
+						0,
+						false,
+						0
+					)
+					local property = {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}
+					local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
+					tweeningColor:Play()
+				end)
+				tweenColorCoroutine()
 			end
 		end)
 
