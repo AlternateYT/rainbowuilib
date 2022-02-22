@@ -1,3 +1,4 @@
+
 local UILib = Instance.new("ScreenGui")
 local UILibFrame = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
@@ -680,9 +681,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 						false,
 						0
 					)
-					local property = {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}
-					local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
-					tweeningColor:Play()
+					tweenService:Create(toggleBG, tweenColor, {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}):Play()
 				end)
 				tweenColorCoroutine()
 			elseif toggleValue.Value == true and currentlyTweening == false then
@@ -715,9 +714,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 						false,
 						0
 					)
-					local property = {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}
-					local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
-					tweeningColor:Play()
+					tweenService:Create(toggleBG, tweenColor, {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}):Play()
 				end)
 				tweenColorCoroutine()
 			end
@@ -755,9 +752,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 						false,
 						0
 					)
-					local property = {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}
-					local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
-					tweeningColor:Play()
+					tweenService:Create(toggleBG, tweenColor, {BackgroundColor3 = Color3.fromRGB(0, 255, 127)}):Play()
 				end)
 				tweenColorCoroutine()
 			elseif toggleValue.Value == true and currentlyTweening == false then
@@ -790,9 +785,7 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 						false,
 						0
 					)
-					local property = {BackgroundColor3 = Color3.fromRGB(207, 207, 207)}
-					local tweeningColor = tweenService:Create(toggleBG, tweenColor, property)
-					tweeningColor:Play()
+					tweenService:Create(toggleBG, tweenColor, {BackgroundColor3 = Color3.fromRGB(207, 207, 206)}):Play()
 				end)
 				tweenColorCoroutine()
 			end
