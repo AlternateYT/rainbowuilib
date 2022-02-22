@@ -11,7 +11,7 @@ recommended.
 
 The current license is Mozilla Public License 2.0
 
-Report bugs to my discord user, EternitiedDeath#0075
+Report bugs to my discord user, EternitiedDeath#7983
 
 # Built-In Functions 
 lib.createWindow(<windowName - String>) Creates the window with the following name/string
