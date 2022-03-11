@@ -1,4 +1,3 @@
-
 local UILib = Instance.new("ScreenGui")
 local UILibFrame = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
@@ -866,6 +865,7 @@ function lib.hideWindowSideButton(buttonName)
 						Text = "The GUI has been hidden/closed.",
 						Duration = 5,
 						Button1 = "Re-open",
+                        Button2 = "Close",
 						Callback = bindf
 					})
 				end
@@ -904,6 +904,7 @@ function lib.hideWindowFrameButton(buttonName, frameName)
 						Text = "The GUI has been hidden/closed.",
 						Duration = 5,
 						Button1 = "Re-open",
+                        Button2 = "Close",
 						Callback = bindf
 					})
 				end
@@ -922,6 +923,20 @@ function lib.showFrameSideButton(buttonName, frameName)
 			end)
 		end
 	end
+end
+
+function lib.returnButton(buttonName)
+    if sideBarContents:FindFirstChild(tostring(buttonName)) then
+        local btn = sideBarContents:WaitForChild(tostring(buttonName))
+        return btn
+    end
+end
+
+function lib.returnFrame(frameName)
+    if UILibFrame:FindFirstChild(tostring(frameName)) then
+        local frame = UILibFrame:WaitForChild(tostring(frameName))
+        return frame
+    end
 end
 
 local UserInputService = game:GetService("UserInputService")
