@@ -1,7 +1,7 @@
 # rainbowuilib
 UI Lib made by me in 1 day, the module is currently on version 0.02
 
-Module Version 0.02
+Module Version 0.03
 
 This UI Lib was designed for me only, however I soon decided shortly after starting to develop the UI Lib, I wanted to make it public, however I do not plan to make it
 open source at the moment.
@@ -30,7 +30,11 @@ lib.createFrameText(<labelText - String>, <frameName - String>) Adds text with t
   
 lib.createFrameButton(<buttonText - String>, <frameName - String>) Adds a button with the following text to the following frame (Can be paired with lua)
   
-[NEW] lib.createFrameToggle(<toggleName - String>, <frameName - String>, <true/false - boolValue>) Adds a toggle with the following name to the following frame with the default bool, if true it'll be automatically set to true when you open the gui, if false it'll be automatically set to false when you open the gui. (Can be paired with lua)
+lib.createFrameToggle(<toggleName - String>, <frameName - String>, <true/false - boolValue>) Adds a toggle with the following name to the following frame with the default bool, if true it'll be automatically set to true when you open the gui, if false it'll be automatically set to false when you open the gui. (Can be paired with lua)
+  
+[NEW] lib.returnButton(<buttonName - String>) Returns a side button with the following name
+
+[NEW] lib.returnFrame(<frameName - String>) Returns a frame with the following name
   
 lib.createFrameSlider(<sliderName, - String>, <minValue - Number>, <maxValue - Number>, <frameName - String>) Creates a slider with the following slider name, min value for the slider, max value for the slider, and puts it in the following frame (Can be paired with lua)
   
