@@ -57,6 +57,8 @@ local sliderCounter_2 = Instance.new("TextBox")
 local UIPadding_5 = Instance.new("UIPadding")
 local clickSound = Instance.new("Sound")
 
+local keybindG = Enum.KeyCode.RightShift
+
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
@@ -525,6 +527,14 @@ UIStroke.Thickness = 3
 UIStroke.Transparency = 0
 UIStroke.Enabled = true
 
+local uis = game:GetService("UserInputService")
+
+uis.InputBegan:Connect(function(input, typing)
+    if input.KeyCode == keybindG and typing == false then
+        UILibFrame.Visible = not UILibFrame.Visible
+    end
+end)
+
 local UIStroke_2 = 	UIStroke:Clone()
 UIStroke_2.Parent = toggleSlider
 
@@ -581,7 +591,6 @@ function lib.createFrameSlider(sliderName, minValue, maxValue, frameName)
 	local sliderValue = newSlider.sliderCounter
 
 	local mouse = game.Players.LocalPlayer:GetMouse()
-	local uis = game:GetService("UserInputService")
 	local Value;
 
 	callback = callback or function() end
@@ -937,6 +946,11 @@ function lib.returnFrame(frameName)
         local frame = UILibFrame:WaitForChild(tostring(frameName))
         return frame
     end
+end
+
+function lib.setHideGUIKeyBind(keybind)
+    keybind = Enum.KeyCode[keybind]
+    keybindG = keybind
 end
 
 local UserInputService = game:GetService("UserInputService")
