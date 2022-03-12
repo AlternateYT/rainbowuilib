@@ -527,6 +527,72 @@ UIStroke.Thickness = 3
 UIStroke.Transparency = 0
 UIStroke.Enabled = true
 
+local frameKeybindTemplate = Instance.new("Frame")
+local keybindButton = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local Frame = Instance.new("Frame")
+local UICorner_2 = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+local keybindTitle = Instance.new("TextLabel")
+local UIPadding = Instance.new("UIPadding")
+local UICorner_3 = Instance.new("UICorner")
+
+frameKeybindTemplate.Name = "frameKeybindTemplate"
+frameKeybindTemplate.Parent = game.StarterGui.UILib.UILibFrame.UIFrame.InnerFrame
+frameKeybindTemplate.BackgroundColor3 = Color3.fromRGB(222, 222, 222)
+frameKeybindTemplate.Position = UDim2.new(0, 0, 0.121546961, 0)
+frameKeybindTemplate.Size = UDim2.new(0, 460, 0, 70)
+
+keybindButton.Name = "keybindButton"
+keybindButton.Parent = frameKeybindTemplate
+keybindButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+keybindButton.ClipsDescendants = true
+keybindButton.Position = UDim2.new(0.856521726, 0, 0.0714285746, 0)
+keybindButton.Size = UDim2.new(0, 60, 0, 60)
+keybindButton.Font = Enum.Font.SourceSans
+keybindButton.Text = ""
+keybindButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+keybindButton.TextSize = 14.000
+
+UICorner.Parent = keybindButton
+
+Frame.Parent = keybindButton
+Frame.BackgroundColor3 = Color3.fromRGB(243, 243, 243)
+Frame.Position = UDim2.new(0.100000001, 0, 0.100000001, 0)
+Frame.Size = UDim2.new(0.800000012, 0, 0.800000012, 0)
+
+UICorner_2.Parent = Frame
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Size = UDim2.new(1, 0, 1, 0)
+TextLabel.Font = Enum.Font.PatrickHand
+TextLabel.Text = "E"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+keybindTitle.Name = "keybindTitle"
+keybindTitle.Parent = frameKeybindTemplate
+keybindTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+keybindTitle.BackgroundTransparency = 1.000
+keybindTitle.Position = UDim2.new(0.0326086953, 0, 0.271428585, 0)
+keybindTitle.Size = UDim2.new(0, 256, 0, 32)
+keybindTitle.Font = Enum.Font.PatrickHand
+keybindTitle.Text = "Keybind"
+keybindTitle.TextColor3 = Color3.fromRGB(0, 0, 0)
+keybindTitle.TextScaled = true
+keybindTitle.TextSize = 25.000
+keybindTitle.TextWrapped = true
+keybindTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+UIPadding.Parent = keybindTitle
+UIPadding.PaddingRight = UDim.new(0, 10)
+
+UICorner_3.Parent = frameKeybindTemplate
+
 local uis = game:GetService("UserInputService")
 
 uis.InputBegan:Connect(function(input, typing)
@@ -561,7 +627,7 @@ end
 
 function lib.createFrameButton(buttonName, frameName)
 	if UILib.UILibFrame:FindFirstChild(tostring(frameName)) then
-		local frame = UILib.UILibFrame:WaitForChild(tostring(frameName))
+		local frame = UILibFrame:WaitForChild(tostring(frameName))
 		local newButton = script.frameButtonTemplate:Clone()
 		newButton.Name = tostring(buttonName)
 		newButton.Text = tostring(buttonName)
@@ -573,8 +639,27 @@ function lib.createFrameButton(buttonName, frameName)
 	end
 end
 
-function lib.createFrameSlider(sliderName, minValue, maxValue, frameName)
+function lib.createFrameKeybind(keybindName, frameName)
+    local frame = UILibFrame:WaitForChild(tostring(frameName))
+    local newKeybind = script.frameKeybindTemplate:Clone()
+    newKeybind.Name = tostring(keybindName)
+    newKeybind.keybindTitle.Text = tostring(keybindName)
+    newKeybind.Parent = frame:WaitForChild("InnerFrame")
 
+    newKeybind.keybindButton.Activated:Connect(function()
+        clickSound:Play()
+		newKeybind.keybindButton.Text = "..."
+		keybindG = nil
+		uis.InputBegan:Connect(function(input, typing)
+			if typing == false then
+				newKeybind.keybindButton.Text = tostring(input.KeyCode)
+				keybindG = input.KeyCode
+			end
+		end)
+    end)
+end
+
+function lib.createFrameSlider(sliderName, minValue, maxValue, frameName)
 	local minvalue = minValue or 16
 	local maxvalue = maxValue or 100
 
@@ -835,11 +920,15 @@ function lib.createTab(tabName)
 end
 
 function lib.hideWindow()
-	UILib.Enabled = false
+	UILibFrame.Visible = false
 end
 
 function lib.showWindow()
-	UILib.Enabled = true
+	UILibFrame.Visible = true
+end
+
+function lib.toggleWindow()
+	UILibFrame.Visible = not UILibFrame.Visible
 end
 
 lib.notificationOnHide = true
@@ -946,6 +1035,13 @@ function lib.returnFrame(frameName)
         local frame = UILibFrame:WaitForChild(tostring(frameName))
         return frame
     end
+end
+
+function lib.returnFrameObject(objectName)
+	if InnerFrame:FindFirstChild(tostring(objectName)) then
+		local btn = InnerFrame:WaitForChild(tostring(objectName))
+		return btn
+	end
 end
 
 function lib.setHideGUIKeyBind(keybind)
