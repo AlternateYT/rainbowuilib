@@ -654,9 +654,11 @@ function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 	newKeybind.Parent = frame:WaitForChild("InnerFrame")
 	
 	local db = false
-
-	newKeybind.keybindButton.Frame.TextLabel.Text = tostring(startingKeybind)
-	newKeybind:WaitForChild("keybindValue").Value = tostring(startingKeybind)
+	
+	if string.len(startingKeybind) > 0 and string.len(startingKeybind) < 50 then
+		newKeybind.keybindButton.Frame.TextLabel.Text = tostring(startingKeybind)
+		newKeybind:WaitForChild("keybindValue").Value = tostring(startingKeybind)
+	end
 
 	newKeybind.keybindButton.Activated:Connect(function()
 		if db == false then
@@ -665,8 +667,9 @@ function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 			newKeybind.keybindButton.Frame.TextLabel.Text = "..."
 			local kb ; kb = uis.InputBegan:Connect(function(input, typing)
 				if typing == false then
-					newKeybind.keybindButton.Frame.TextLabel.Text = tostring(input.KeyCode)
-					newKeybind:WaitForChild("keybindValue").Value = tostring(input.KeyCode)
+					local stringA = string.sub(tostring(input.KeyCode), 14, string.len(tostring(input.KeyCode)))
+					newKeybind.keybindButton.Frame.TextLabel.Text = stringA
+					newKeybind:WaitForChild("keybindValue").Value = stringA
 					db = false
 					kb:Disconnect()
 				end
