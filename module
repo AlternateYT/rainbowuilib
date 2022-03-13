@@ -1,7 +1,7 @@
 local player = game.Players.LocalPlayer
 
-if player:WaitForChild("PlayerGui"):FindFirstChild("UILib") then
-	player:WaitForChild("PlayerGui"):WaitForChild("UILib"):Destroy()
+if game:GetService("CoreGui"):FindFirstChild("UILib") then
+	game:GetService("CoreGui"):WaitForChild("UILib"):Destroy()
 end
 
 local UILib = Instance.new("ScreenGui")
@@ -65,12 +65,10 @@ local clickSound = Instance.new("Sound")
 
 local keybindG = "RightShift"
 
-local playerGui = player:WaitForChild("PlayerGui")
-
 --Properties:
 
 UILib.Name = "UILib"
-UILib.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+UILib.Parent = game:GetService("CoreGui")
 UILib.Enabled = false
 UILib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 UILib.ResetOnSpawn = false
