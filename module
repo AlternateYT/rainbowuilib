@@ -1,3 +1,9 @@
+local player = game.Players.LocalPlayer
+
+if player:WaitForChild("PlayerGui"):FindFirstChild("UILib") then
+	player:WaitForChild("PlayerGui"):WaitForChild("UILib"):Destroy()
+end
+
 local UILib = Instance.new("ScreenGui")
 local UILibFrame = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
@@ -59,7 +65,6 @@ local clickSound = Instance.new("Sound")
 
 local keybindG = "RightShift"
 
-local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
 --Properties:
@@ -689,7 +694,7 @@ function lib.returnFrameKeybindValue(keybindName, frameName)
 				local keybind = InnerFrame:WaitForChild(tostring(keybindName))
 				if keybind:FindFirstChild("keybindValue") then
 					local obj = keybind:WaitForChild("keybindValue")
-					return obj
+					return obj.Value
 				end
 			end
 		end
