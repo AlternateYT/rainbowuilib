@@ -1,7 +1,7 @@
 # rainbowuilib
 UI Lib made by me in 1 day, the module is currently on version 0.02
 
-Module Version 0.03
+Module Version 0.04
 
 This UI Lib was designed for me only, however I soon decided shortly after starting to develop the UI Lib, I wanted to make it public, however I do not plan to make it
 open source at the moment.
@@ -22,20 +22,28 @@ lib.createTab(<tabName - String>) Creates a tab on the side bar, up to 8 are cur
   
 lib.hideWindowSideButton(<tabName - String>) Hides or closes the gui when the following tab button is pressed
   
-lib.createFrame(<frameName - String>) Creates a frame (Can be paired with a tab button)
+lib.createFrame(<frameName - String>) Creates a frame
   
 lib.showFrameSideButton(<tabName - String>, <frameName - String>) When the following tab button is pressed, it will show the following frame
   
-lib.createFrameText(<labelText - String>, <frameName - String>) Adds text with the following text to the following frame (Can be paired with lua)
+lib.createFrameText(<labelText - String>, <frameName - String>) Adds text with the following text to the following frame
   
-lib.createFrameButton(<buttonText - String>, <frameName - String>) Adds a button with the following text to the following frame (Can be paired with lua)
+lib.createFrameButton(<buttonText - String>, <frameName - String>) Adds a button with the following text to the following frame
   
-lib.createFrameToggle(<toggleName - String>, <frameName - String>, <true/false - boolValue>) Adds a toggle with the following name to the following frame with the default bool, if true it'll be automatically set to true when you open the gui, if false it'll be automatically set to false when you open the gui. (Can be paired with lua)
+lib.createFrameToggle(<toggleName - String>, <frameName - String>, <true/false - boolValue>) Adds a toggle with the following name to the following frame with the default bool, if true it'll be automatically set to true when you open the gui, if false it'll be automatically set to false when you open the gui
   
-[NEW] lib.returnButton(<buttonName - String>) Returns a side button with the following name
+lib.returnButton(<buttonName - String>) Returns a side button with the following name
 
-[NEW] lib.returnFrame(<frameName - String>) Returns a frame with the following name
+lib.returnFrame(<frameName - String>) Returns a frame with the following name
   
-lib.createFrameSlider(<sliderName, - String>, <minValue - Number>, <maxValue - Number>, <frameName - String>) Creates a slider with the following slider name, min value for the slider, max value for the slider, and puts it in the following frame (Can be paired with lua)
+[NEW] lib.createFrameKeybind(<keybindName - String>, <frameName - String>, <startingKeybind - String>) Adds a keybind with the following name to the following frame with the following starting keybind already preset
+  
+[NEW] lib.returnFrameKeybindValue(<keybindName - String>, <frameName - String>) Returns the current value of the following keybind in the following frame
+  
+[NEW] lib.returnFrameObject(<frameName - String>, <objectName - String>) Returns a frame object in the following frame with the following name
+  
+[NEW] lib.setHideGUIKeybind(<keybind - String>) Sets the keybind required to hide the gui with the following keybind
+  
+lib.createFrameSlider(<sliderName, - String>, <minValue - Number>, <maxValue - Number>, <frameName - String>) Creates a slider with the following slider name, min value for the slider, max value for the slider, and puts it in the following frame
   
 lib.notificationOnHide = <true/false - boolValue> If set to true, it'll show a notification when the window is closed or hidden by a exit/hide function that allows you to re-open the gui when closed. If set to false, it won't show a notification when the window is closed or hidden by a exit/hide function.
