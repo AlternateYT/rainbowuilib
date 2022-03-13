@@ -539,7 +539,7 @@ local UICorner_3 = Instance.new("UICorner")
 local StringValue_69 = Instance.new("StringValue")
 
 frameKeybindTemplate.Name = "frameKeybindTemplate"
-frameKeybindTemplate.Parent = UILib.UILibFrame.UIFrame.InnerFrame
+frameKeybindTemplate.Parent = script
 frameKeybindTemplate.BackgroundColor3 = Color3.fromRGB(222, 222, 222)
 frameKeybindTemplate.Position = UDim2.new(0, 0, 0.121546961, 0)
 frameKeybindTemplate.Size = UDim2.new(0, 460, 0, 70)
