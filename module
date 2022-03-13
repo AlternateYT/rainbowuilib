@@ -1094,14 +1094,9 @@ function lib.returnFrameObject(objectName, frameName)
 end
 
 function lib.setHideGUIKeybind(keybind)
-	if keybind.Value ~= nil then
-		if tostring(keybind.Value) ~= nil then
-			keybindG = tostring(keybind.Value)
-		end
-	elseif keybind.Value == nil then
-		if tostring(keybind) ~= nil then
-			keybindG = tostring(keybind)
-		end
+	print(keybind)
+	if tostring(keybind) ~= nil then
+		keybindG = tostring(keybind)
 	end
 end
 
