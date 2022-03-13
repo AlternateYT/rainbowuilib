@@ -701,9 +701,7 @@ function lib.returnFrameKeybindValue(keybindName, frameName)
 			end
 		end
 	end)
-	if errorMsg then
-		print(tostring(errorMsg)
-	end
+	print(success, errorMsg)
 end
 
 function lib.createFrameSlider(sliderName, minValue, maxValue, frameName)
