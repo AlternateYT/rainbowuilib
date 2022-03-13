@@ -652,16 +652,16 @@ function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 	newKeybind.Name = tostring(keybindName)
 	newKeybind.keybindTitle.Text = tostring(keybindName)
 	newKeybind.Parent = frame:WaitForChild("InnerFrame")
-	
-	newKeybind.keybindButton.Text = tostring(startingKeybind)
+
+	newKeybind.keybindButton.Frame.TextLabel.Text = tostring(startingKeybind)
 	newKeybind:WaitForChild("keybindValue").Value = tostring(startingKeybind)
 
 	newKeybind.keybindButton.Activated:Connect(function()
 		clickSound:Play()
-		newKeybind.keybindButton.Text = "..."
+		newKeybind.keybindButton.Frame.TextLabel.Text = "..."
 		uis.InputBegan:Connect(function(input, typing)
 			if typing == false then
-				newKeybind.keybindButton.Text = tostring(input.KeyCode)
+				newKeybind.keybindButtonFrame.TextLabel.Text = tostring(input.KeyCode)
 				newKeybind:WaitForChild("keybindValue").Value = tostring(input.KeyCode)
 			end
 		end)
