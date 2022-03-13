@@ -686,8 +686,8 @@ function lib.returnFrameKeybindValue(keybindName, frameName)
 			if InnerFrame:FindFirstChild(tostring(keybindName)) then
 				local keybind = InnerFrame:WaitForChild(tostring(keybindName))
 				if keybind:FindFirstChild("keybindValue") then
-					local value = keybind:WaitForChild("keybindValue").Value
-					return value
+					local obj = keybind:WaitForChild("keybindValue")
+					return obj.Value
 				end
 			end
 		end
