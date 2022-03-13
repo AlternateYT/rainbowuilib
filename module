@@ -536,12 +536,17 @@ local TextLabel = Instance.new("TextLabel")
 local keybindTitle = Instance.new("TextLabel")
 local UIPadding = Instance.new("UIPadding")
 local UICorner_3 = Instance.new("UICorner")
+local StringValue_69 = Instance.new("StringValue")
 
 frameKeybindTemplate.Name = "frameKeybindTemplate"
 frameKeybindTemplate.Parent = game.StarterGui.UILib.UILibFrame.UIFrame.InnerFrame
 frameKeybindTemplate.BackgroundColor3 = Color3.fromRGB(222, 222, 222)
 frameKeybindTemplate.Position = UDim2.new(0, 0, 0.121546961, 0)
 frameKeybindTemplate.Size = UDim2.new(0, 460, 0, 70)
+
+StringValue_69.Name = "keybindValue"
+StringValue_69.Parent = frameKeybindTemplate
+StringValue_69.Value = tostring(nil)
 
 keybindButton.Name = "keybindButton"
 keybindButton.Parent = frameKeybindTemplate
@@ -593,12 +598,14 @@ UIPadding.PaddingRight = UDim.new(0, 10)
 
 UICorner_3.Parent = frameKeybindTemplate
 
+-- PRE-SCRIPTS --
+
 local uis = game:GetService("UserInputService")
 
 uis.InputBegan:Connect(function(input, typing)
-    if input.KeyCode == keybindG and typing == false then
-        UILibFrame.Visible = not UILibFrame.Visible
-    end
+	if input.KeyCode == keybindG and typing == false then
+		UILibFrame.Visible = not UILibFrame.Visible
+	end
 end)
 
 local UIStroke_2 = 	UIStroke:Clone()
@@ -639,24 +646,39 @@ function lib.createFrameButton(buttonName, frameName)
 	end
 end
 
-function lib.createFrameKeybind(keybindName, frameName)
-    local frame = UILibFrame:WaitForChild(tostring(frameName))
-    local newKeybind = script.frameKeybindTemplate:Clone()
-    newKeybind.Name = tostring(keybindName)
-    newKeybind.keybindTitle.Text = tostring(keybindName)
-    newKeybind.Parent = frame:WaitForChild("InnerFrame")
+function lib.createFrameKeybind(keybindName, frameName) -- NEW
+	local frame = UILibFrame:WaitForChild(tostring(frameName))
+	local newKeybind = script.frameKeybindTemplate:Clone()
+	newKeybind.Name = tostring(keybindName)
+	newKeybind.keybindTitle.Text = tostring(keybindName)
+	newKeybind.Parent = frame:WaitForChild("InnerFrame")
 
-    newKeybind.keybindButton.Activated:Connect(function()
-        clickSound:Play()
+	newKeybind.keybindButton.Activated:Connect(function()
+		clickSound:Play()
 		newKeybind.keybindButton.Text = "..."
-		keybindG = nil
 		uis.InputBegan:Connect(function(input, typing)
 			if typing == false then
 				newKeybind.keybindButton.Text = tostring(input.KeyCode)
-				keybindG = input.KeyCode
+				newKeybind:WaitForChild("keybindValue").Value = tostring(input.KeyCode)
 			end
 		end)
-    end)
+	end)
+end
+
+function lib.returnFrameKeybindValue(keybindName, frameName) -- NEW
+	if UILibFrame:FindFirstChild(tostring(frameName)) then
+		local UIFrame = UILibFrame:WaitForChild(tostring(frameName))
+		if UIFrame:FindFirstChild("InnerFrame") then
+			local InnerFrame = UIFrame:WaitForChild("InnerFrame")
+			if InnerFrame:FindFirstChild(tostring(keybindName)) then
+				local keybind = InnerFrame:WaitForChild(tostring(keybindName))
+				if keybind:FindFirstChild("keybindValue") then
+					local value = keybind:WaitForChild("keybindValue")
+					return value
+				end
+			end
+		end
+	end
 end
 
 function lib.createFrameSlider(sliderName, minValue, maxValue, frameName)
@@ -927,7 +949,7 @@ function lib.showWindow()
 	UILibFrame.Visible = true
 end
 
-function lib.toggleWindow()
+function lib.toggleWindow() -- NEW
 	UILibFrame.Visible = not UILibFrame.Visible
 end
 
@@ -963,7 +985,7 @@ function lib.hideWindowSideButton(buttonName)
 						Text = "The GUI has been hidden/closed.",
 						Duration = 5,
 						Button1 = "Re-open",
-                        Button2 = "Close",
+						Button2 = "Close",
 						Callback = bindf
 					})
 				end
@@ -1002,7 +1024,7 @@ function lib.hideWindowFrameButton(buttonName, frameName)
 						Text = "The GUI has been hidden/closed.",
 						Duration = 5,
 						Button1 = "Re-open",
-                        Button2 = "Close",
+						Button2 = "Close",
 						Callback = bindf
 					})
 				end
@@ -1024,29 +1046,33 @@ function lib.showFrameSideButton(buttonName, frameName)
 end
 
 function lib.returnButton(buttonName)
-    if sideBarContents:FindFirstChild(tostring(buttonName)) then
-        local btn = sideBarContents:WaitForChild(tostring(buttonName))
-        return btn
-    end
-end
-
-function lib.returnFrame(frameName)
-    if UILibFrame:FindFirstChild(tostring(frameName)) then
-        local frame = UILibFrame:WaitForChild(tostring(frameName))
-        return frame
-    end
-end
-
-function lib.returnFrameObject(objectName)
-	if InnerFrame:FindFirstChild(tostring(objectName)) then
-		local btn = InnerFrame:WaitForChild(tostring(objectName))
+	if sideBarContents:FindFirstChild(tostring(buttonName)) then
+		local btn = sideBarContents:WaitForChild(tostring(buttonName))
 		return btn
 	end
 end
 
+function lib.returnFrame(frameName)
+	if UILibFrame:FindFirstChild(tostring(frameName)) then
+		local frame = UILibFrame:WaitForChild(tostring(frameName))
+		return frame
+	end
+end
+
+function lib.returnFrameObject(objectName, frameName)
+	if UILibFrame:FindFirstChild(frameName) then
+		local frame = UILibFrame:WaitForChild(frameName)
+		local inframe = frame:WaitForChild("InnerFrame")
+		if inframe:FindFirstChild(tostring(objectName)) then
+			local obj = inframe:WaitForChild(tostring(objectName))
+			return obj
+		end
+	end
+end
+
 function lib.setHideGUIKeyBind(keybind)
-    keybind = Enum.KeyCode[keybind]
-    keybindG = keybind
+	keybind = Enum.KeyCode[keybind]
+	keybindG = keybind
 end
 
 local UserInputService = game:GetService("UserInputService")
