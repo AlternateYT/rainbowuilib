@@ -57,7 +57,7 @@ local sliderCounter_2 = Instance.new("TextBox")
 local UIPadding_5 = Instance.new("UIPadding")
 local clickSound = Instance.new("Sound")
 
-local keybindG = Enum.KeyCode.RightShift
+local keybindG = "RightShift"
 
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -652,9 +652,9 @@ function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 	newKeybind.Name = tostring(keybindName)
 	newKeybind.keybindTitle.Text = tostring(keybindName)
 	newKeybind.Parent = frame:WaitForChild("InnerFrame")
-	
+
 	local db = false
-	
+
 	if string.len(startingKeybind) > 0 and string.len(startingKeybind) < 50 then
 		newKeybind.keybindButton.Frame.TextLabel.Text = tostring(startingKeybind)
 		newKeybind:WaitForChild("keybindValue").Value = tostring(startingKeybind)
