@@ -686,18 +686,23 @@ function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 end
 
 function lib.returnFrameKeybindValue(keybindName, frameName)
-	if UILibFrame:FindFirstChild(tostring(frameName)) then
-		local UIFrame = UILibFrame:WaitForChild(tostring(frameName))
-		if UIFrame:FindFirstChild("InnerFrame") then
-			local InnerFrame = UIFrame:WaitForChild("InnerFrame")
-			if InnerFrame:FindFirstChild(tostring(keybindName)) then
-				local keybind = InnerFrame:WaitForChild(tostring(keybindName))
-				if keybind:FindFirstChild("keybindValue") then
-					local obj = keybind:WaitForChild("keybindValue")
-					return obj.Value
+	local success, errorMsg = pcall(function()
+		if UILibFrame:FindFirstChild(tostring(frameName)) then
+			local UIFrame = UILibFrame:WaitForChild(tostring(frameName))
+			if UIFrame:FindFirstChild("InnerFrame") then
+				local InnerFrame = UIFrame:WaitForChild("InnerFrame")
+				if InnerFrame:FindFirstChild(tostring(keybindName)) then
+					local keybind = InnerFrame:WaitForChild(tostring(keybindName))
+					if keybind:FindFirstChild("keybindValue") then
+						local obj = keybind:WaitForChild("keybindValue")
+						return obj
+					end
 				end
 			end
 		end
+	end)
+	if errorMsg then
+		print(errorMsg.." - returnFrameKeybindValue")
 	end
 end
 
