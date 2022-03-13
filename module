@@ -1,8 +1,12 @@
 local player = game.Players.LocalPlayer
 
-if game:GetService("CoreGui"):FindFirstChild("UILib") then
-	game:GetService("CoreGui"):WaitForChild("UILib"):Destroy()
+if workspace.CurrentCamera:FindFirstChild("boolCore") then
+	return nil
 end
+
+local boolCore = Instance.new("BoolValue")
+boolCore.Name = "boolCore"
+boolCore.Parent = workspace.CurrentCamera
 
 local UILib = Instance.new("ScreenGui")
 local UILibFrame = Instance.new("Frame")
