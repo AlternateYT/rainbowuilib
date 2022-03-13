@@ -36,6 +36,12 @@ lib.returnButton(<buttonName - String>) Returns a side button with the following
 
 lib.returnFrame(<frameName - String>) Returns a frame with the following name
   
+lib.hideWindow() Hides the current window
+
+lib.showWindow() Shows the current window
+  
+[NEW] lib.toggleWindow() Toggles the current window depending on if its being shown or if its being hidden
+  
 [NEW] lib.createFrameKeybind(<keybindName - String>, <frameName - String>, <startingKeybind - String>) Adds a keybind with the following name to the following frame with the following starting keybind already preset
   
 [NEW] lib.returnFrameKeybindValue(<keybindName - String>, <frameName - String>) Returns the current value of the following keybind in the following frame
