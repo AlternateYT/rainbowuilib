@@ -46,7 +46,7 @@ lib.showWindow() Shows the current window
   
 [NEW] lib.returnFrameKeybindValue(<keybindName - String>, <frameName - String>) Returns the current value of the following keybind in the following frame
   
-[NEW] lib.returnFrameObject(<frameName - String>, <objectName - String>) Returns a frame object in the following frame with the following name
+[NEW] lib.returnFrameObject(<objectName - String>, <frameName - String>) Returns a frame object in the following frame with the following name
   
 [NEW] lib.setHideGUIKeybind(<keybind - String>) Sets the keybind required to hide the gui with the following keybind
   
