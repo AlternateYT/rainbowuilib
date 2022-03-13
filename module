@@ -603,7 +603,7 @@ UICorner_3.Parent = frameKeybindTemplate
 local uis = game:GetService("UserInputService")
 
 uis.InputBegan:Connect(function(input, typing)
-	if input.KeyCode == keybindG and typing == false then
+	if string.sub(tostring(input.KeyCode), 14, string.len(tostring(input.KeyCode))) == keybindG and typing == false then
 		UILibFrame.Visible = not UILibFrame.Visible
 	end
 end)
