@@ -646,12 +646,15 @@ function lib.createFrameButton(buttonName, frameName)
 	end
 end
 
-function lib.createFrameKeybind(keybindName, frameName) -- NEW
+function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 	local frame = UILibFrame:WaitForChild(tostring(frameName))
 	local newKeybind = script.frameKeybindTemplate:Clone()
 	newKeybind.Name = tostring(keybindName)
 	newKeybind.keybindTitle.Text = tostring(keybindName)
 	newKeybind.Parent = frame:WaitForChild("InnerFrame")
+	
+	newKeybind.keybindButton.Text = tostring(startingKeybind)
+	newKeybind:WaitForChild("keybindValue").Value = tostring(startingKeybind)
 
 	newKeybind.keybindButton.Activated:Connect(function()
 		clickSound:Play()
@@ -665,7 +668,7 @@ function lib.createFrameKeybind(keybindName, frameName) -- NEW
 	end)
 end
 
-function lib.returnFrameKeybindValue(keybindName, frameName) -- NEW
+function lib.returnFrameKeybindValue(keybindName, frameName)
 	if UILibFrame:FindFirstChild(tostring(frameName)) then
 		local UIFrame = UILibFrame:WaitForChild(tostring(frameName))
 		if UIFrame:FindFirstChild("InnerFrame") then
