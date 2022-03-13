@@ -661,7 +661,7 @@ function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 		newKeybind.keybindButton.Frame.TextLabel.Text = "..."
 		uis.InputBegan:Connect(function(input, typing)
 			if typing == false then
-				newKeybind.keybindButtonFrame.TextLabel.Text = tostring(input.KeyCode)
+				newKeybind.keybindButton.Frame.TextLabel.Text = tostring(input.KeyCode)
 				newKeybind:WaitForChild("keybindValue").Value = tostring(input.KeyCode)
 			end
 		end)
