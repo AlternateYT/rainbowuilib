@@ -685,9 +685,8 @@ function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 	end)
 end
 
-local keybindvalue = nil
 function lib.returnFrameKeybindValue(keybindName, frameName)
-	local success, errorMsg = pcall(function()
+	local success, response = pcall(function()
 		if UILibFrame:FindFirstChild(tostring(frameName)) then
 			local UIFrame = UILibFrame:WaitForChild(tostring(frameName))
 			if UIFrame:FindFirstChild("InnerFrame") then
@@ -695,13 +694,14 @@ function lib.returnFrameKeybindValue(keybindName, frameName)
 				if InnerFrame:FindFirstChild(tostring(keybindName)) then
 					local keybind = InnerFrame:WaitForChild(tostring(keybindName))
 					if keybind:FindFirstChild("keybindValue") then
-						keybindvalue = keybind.keybindValue.Value
+						return keybind.keybindValue.Value
 					end
 				end
 			end
 		end
 	end)
-	return keybindvalue
+	print(success, response)
+	return response
 end
 
 function lib.createFrameSlider(sliderName, minValue, maxValue, frameName)
