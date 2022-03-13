@@ -962,7 +962,7 @@ function lib.showWindow()
 	UILibFrame.Visible = true
 end
 
-function lib.toggleWindow() -- NEW
+function lib.toggleWindow()
 	UILibFrame.Visible = not UILibFrame.Visible
 end
 
@@ -1084,7 +1084,6 @@ function lib.returnFrameObject(objectName, frameName)
 end
 
 function lib.setHideGUIKeyBind(keybind)
-	keybind = Enum.KeyCode[keybind]
 	keybindG = keybind
 end
 
