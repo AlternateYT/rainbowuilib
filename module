@@ -668,10 +668,12 @@ function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 			local kb ; kb = uis.InputBegan:Connect(function(input, typing)
 				if typing == false then
 					local stringA = string.sub(tostring(input.KeyCode), 14, string.len(tostring(input.KeyCode)))
-					newKeybind.keybindButton.Frame.TextLabel.Text = stringA
-					newKeybind:WaitForChild("keybindValue").Value = stringA
-					db = false
-					kb:Disconnect()
+					if stringA ~= "Unknown" then
+						newKeybind.keybindButton.Frame.TextLabel.Text = stringA
+						newKeybind:WaitForChild("keybindValue").Value = stringA
+						db = false
+						kb:Disconnect()
+					end
 				end
 			end)
 		end
