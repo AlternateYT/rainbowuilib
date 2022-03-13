@@ -686,7 +686,7 @@ function lib.returnFrameKeybindValue(keybindName, frameName)
 			if InnerFrame:FindFirstChild(tostring(keybindName)) then
 				local keybind = InnerFrame:WaitForChild(tostring(keybindName))
 				if keybind:FindFirstChild("keybindValue") then
-					local value = keybind:WaitForChild("keybindValue")
+					local value = keybind:WaitForChild("keybindValue").Value
 					return value
 				end
 			end
@@ -1083,7 +1083,7 @@ function lib.returnFrameObject(objectName, frameName)
 	end
 end
 
-function lib.setHideGUIKeybind(keybind)
+function lib.setHideGUIKeyBind(keybind)
 	keybind = Enum.KeyCode[keybind]
 	keybindG = keybind
 end
