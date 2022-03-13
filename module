@@ -1083,7 +1083,7 @@ function lib.returnFrameObject(objectName, frameName)
 	end
 end
 
-function lib.setHideGUIKeyBind(keybind)
+function lib.setHideGUIKeybind(keybind)
 	keybind = Enum.KeyCode[keybind]
 	keybindG = keybind
 end
