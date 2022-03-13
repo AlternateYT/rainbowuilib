@@ -1086,7 +1086,15 @@ function lib.returnFrameObject(objectName, frameName)
 end
 
 function lib.setHideGUIKeybind(keybind)
-	keybindG = tostring(keybind)
+	if keybind.Value ~= nil then
+		if tostring(keybind.Value) ~= nil then
+			keybindG = tostring(keybind.Value)
+		end
+	elseif keybind.Value == nil then
+		if tostring(keybind) ~= nil then
+			keybindG = tostring(keybind)
+		end
+	end
 end
 
 local UserInputService = game:GetService("UserInputService")
