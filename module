@@ -1,7 +1,7 @@
 local player = game.Players.LocalPlayer
 
 if workspace.CurrentCamera:FindFirstChild("boolCore") then
-	return nil
+	workspace.CurrentCamera:WaitForChild("boolCore"):Destroy()
 end
 
 local boolCore = Instance.new("BoolValue")
@@ -617,6 +617,13 @@ end)
 
 local UIStroke_2 = 	UIStroke:Clone()
 UIStroke_2.Parent = toggleSlider
+
+game:GetService("Lighting").ChildRemoved:Connect(function(obj)
+	if obj.Name == "boolCore" then
+		UILib:Destroy()
+		return nil
+	end
+end)
 
 repeat wait() until UILib ~= nil
 
