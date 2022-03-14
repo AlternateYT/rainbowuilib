@@ -618,7 +618,7 @@ end)
 local UIStroke_2 = 	UIStroke:Clone()
 UIStroke_2.Parent = toggleSlider
 
-game:GetService("Lighting").ChildRemoved:Connect(function(obj)
+workspace.CurrentCamera.ChildRemoved:Connect(function(obj)
 	if obj.Name == "boolCore" then
 		UILib:Destroy()
 		return nil
