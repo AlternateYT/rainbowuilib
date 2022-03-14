@@ -621,7 +621,6 @@ UIStroke_2.Parent = toggleSlider
 workspace.CurrentCamera.ChildRemoved:Connect(function(obj)
 	if obj.Name == "boolCore" then
 		UILib:Destroy()
-		print("destroyed")
 		return nil
 	end
 end)
