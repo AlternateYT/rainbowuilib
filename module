@@ -1,12 +1,21 @@
+local UIThemes = {"rainbow pastel", "shadow", "sunlight"}
+
 local player = game.Players.LocalPlayer
 
-if workspace.CurrentCamera:FindFirstChild("boolCore") then
-	workspace.CurrentCamera:WaitForChild("boolCore"):Destroy()
+for _, v in pairs(workspace.CurrentCamera:GetDescendants()) do
+    if v:IsA("BoolValue") then
+        local boolName = v.Name
+        if string.split(boolname, "bootCore")[2] then
+            if string.split(boolname, "bootCore")[2] == "bootCore" then
+                workspace.CurrentCamera:WaitForChild("bootCore"):Destroy()
+            end
+        end
+    end
 end
 
-local boolCore = Instance.new("BoolValue")
-boolCore.Name = "boolCore"
-boolCore.Parent = workspace.CurrentCamera
+local bootCore = Instance.new("BoolValue")
+bootCore.Name = game:GetService("HttpService"):GenerateGUID().."bootCore"
+bootCore.Parent = workspace.CurrentCamera
 
 local UILib = Instance.new("ScreenGui")
 local UILibFrame = Instance.new("Frame")
@@ -644,6 +653,7 @@ function lib.createFrame(frameName)
 	newFrame.Parent = UILib.UILibFrame
 	newFrame.Visible = false
 	newFrame.InnerFrame.innerFrameTitle.Text = tostring(frameName)
+    return newFrame
 end
 
 function lib.createFrameButton(buttonName, frameName)
@@ -657,41 +667,47 @@ function lib.createFrameButton(buttonName, frameName)
 		newButton.Activated:Connect(function()
 			clickSound:Play()
 		end)
+        return newButton
 	end
+    return nil
 end
 
 function lib.createFrameKeybind(keybindName, frameName, startingKeybind)
 	local frame = UILibFrame:WaitForChild(tostring(frameName))
-	local newKeybind = script.frameKeybindTemplate:Clone()
-	newKeybind.Name = tostring(keybindName)
-	newKeybind.keybindTitle.Text = tostring(keybindName)
-	newKeybind.Parent = frame:WaitForChild("InnerFrame")
+    if UILib.UILibFrame:FindFirstChild(tostring(frameName)) then
+        local newKeybind = script.frameKeybindTemplate:Clone()
+        newKeybind.Name = tostring(keybindName)
+        newKeybind.keybindTitle.Text = tostring(keybindName)
+        newKeybind.Parent = frame:WaitForChild("InnerFrame")
 
-	local db = false
+        local db = false
 
-	if string.len(startingKeybind) > 0 and string.len(startingKeybind) < 50 then
-		newKeybind.keybindButton.Frame.TextLabel.Text = tostring(startingKeybind)
-		newKeybind:WaitForChild("keybindValue").Value = tostring(startingKeybind)
-	end
+        if string.len(startingKeybind) > 0 and string.len(startingKeybind) < 50 then
+            newKeybind.keybindButton.Frame.TextLabel.Text = tostring(startingKeybind)
+            newKeybind:WaitForChild("keybindValue").Value = tostring(startingKeybind)
+        end
 
-	newKeybind.keybindButton.Activated:Connect(function()
-		if db == false then
-			db = true
-			clickSound:Play()
-			newKeybind.keybindButton.Frame.TextLabel.Text = "..."
-			local kb ; kb = uis.InputBegan:Connect(function(input, typing)
-				if typing == false then
-					local stringA = string.sub(tostring(input.KeyCode), 14, string.len(tostring(input.KeyCode)))
-					if stringA ~= "Unknown" then
-						newKeybind.keybindButton.Frame.TextLabel.Text = stringA
-						newKeybind:WaitForChild("keybindValue").Value = stringA
-						db = false
-						kb:Disconnect()
-					end
-				end
-			end)
-		end
-	end)
+        newKeybind.keybindButton.Activated:Connect(function()
+            if db == false then
+                db = true
+                clickSound:Play()
+                newKeybind.keybindButton.Frame.TextLabel.Text = "..."
+                local kb ; kb = uis.InputBegan:Connect(function(input, typing)
+                    if typing == false then
+                        local stringA = string.sub(tostring(input.KeyCode), 14, string.len(tostring(input.KeyCode)))
+                        if stringA ~= "Unknown" then
+                            newKeybind.keybindButton.Frame.TextLabel.Text = stringA
+                            newKeybind:WaitForChild("keybindValue").Value = stringA
+                            db = false
+                            kb:Disconnect()
+                        end
+                    end
+                end)
+            end
+        end)
+        return newKeybind
+    end
+    return nil
 end
 
 function lib.returnFrameKeybindValue(keybindName, frameName)
@@ -714,63 +730,66 @@ function lib.returnFrameKeybindValue(keybindName, frameName)
 end
 
 function lib.createFrameSlider(sliderName, minValue, maxValue, frameName)
-	local minvalue = minValue or 16
-	local maxvalue = maxValue or 100
+    local frame = UILib.UILibFrame:WaitForChild(tostring(frameName))
+    if UILibFrame:FindFirstChild(tostring(frameName)) then
+        local minvalue = minValue or 16
+        local maxvalue = maxValue or 100
 
-	local frame = UILib.UILibFrame:WaitForChild(tostring(frameName))
+        local newSlider = script.frameSliderTemplate:Clone()
+        newSlider.sliderTitle.Text = tostring(sliderName)
+        newSlider.sliderCounter.Text = tostring(minValue)
+        newSlider.Name = tostring(sliderName)
+        newSlider.Parent = frame:WaitForChild("InnerFrame")
 
-	local newSlider = script.frameSliderTemplate:Clone()
-	newSlider.sliderTitle.Text = tostring(sliderName)
-	newSlider.sliderCounter.Text = tostring(minValue)
-	newSlider.Name = tostring(sliderName)
-	newSlider.Parent = frame:WaitForChild("InnerFrame")
+        local sliderButton = newSlider.sliderButton
+        local sliderFrame = sliderButton.sliderInner
+        local sliderValue = newSlider.sliderCounter
 
-	local sliderButton = newSlider.sliderButton
-	local sliderFrame = sliderButton.sliderInner
-	local sliderValue = newSlider.sliderCounter
+        local mouse = game.Players.LocalPlayer:GetMouse()
+        local Value;
 
-	local mouse = game.Players.LocalPlayer:GetMouse()
-	local Value;
+        callback = callback or function() end
 
-	callback = callback or function() end
-
-	sliderButton.MouseButton1Down:Connect(function()
-		clickSound:Play()
-		Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 447) * sliderFrame.AbsoluteSize.X) + tonumber(minvalue)) or 0
-		sliderValue.Text = Value
-		pcall(function()
-			callback(Value)
-		end)
-		sliderFrame.Size = UDim2.new(0, math.clamp(mouse.X - sliderFrame.AbsolutePosition.X, 0, 447), 1, 0)
-		moveconnection = mouse.Move:Connect(function()
-			sliderValue.Text = Value
-			Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 447) * sliderFrame.AbsoluteSize.X) + tonumber(minvalue))
-			pcall(function()
-				callback(Value)
-			end)
-			sliderFrame.Size = UDim2.new(0, math.clamp(mouse.X - sliderFrame.AbsolutePosition.X, 0, 447), 1, 0)
-		end)
-		releaseconnection = uis.InputEnded:Connect(function(Mouse)
-			if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
-				Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 447) * sliderFrame.AbsoluteSize.X) + tonumber(minvalue))
-				sliderValue.Text = Value
-				pcall(function()
-					callback(Value)
-				end)
-				sliderFrame.Size = UDim2.new(0, math.clamp(mouse.X - sliderFrame.AbsolutePosition.X, 0, 447), 1, 0)
-				moveconnection:Disconnect()
-				releaseconnection:Disconnect()
-			end
-		end)
-	end)
-	sliderValue.FocusLost:Connect(function()
-		if tonumber(sliderValue.Text) < minValue then
-			sliderValue.Text = tostring(minValue)
-		end
-		if tonumber(sliderValue.Text) > maxValue then
-			sliderValue.Text = tostring(maxValue)
-		end
-	end)
+        sliderButton.MouseButton1Down:Connect(function()
+            clickSound:Play()
+            Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 447) * sliderFrame.AbsoluteSize.X) + tonumber(minvalue)) or 0
+            sliderValue.Text = Value
+            pcall(function()
+                callback(Value)
+            end)
+            sliderFrame.Size = UDim2.new(0, math.clamp(mouse.X - sliderFrame.AbsolutePosition.X, 0, 447), 1, 0)
+            moveconnection = mouse.Move:Connect(function()
+                sliderValue.Text = Value
+                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 447) * sliderFrame.AbsoluteSize.X) + tonumber(minvalue))
+                pcall(function()
+                    callback(Value)
+                end)
+                sliderFrame.Size = UDim2.new(0, math.clamp(mouse.X - sliderFrame.AbsolutePosition.X, 0, 447), 1, 0)
+            end)
+            releaseconnection = uis.InputEnded:Connect(function(Mouse)
+                if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+                    Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 447) * sliderFrame.AbsoluteSize.X) + tonumber(minvalue))
+                    sliderValue.Text = Value
+                    pcall(function()
+                        callback(Value)
+                    end)
+                    sliderFrame.Size = UDim2.new(0, math.clamp(mouse.X - sliderFrame.AbsolutePosition.X, 0, 447), 1, 0)
+                    moveconnection:Disconnect()
+                    releaseconnection:Disconnect()
+                end
+            end)
+        end)
+        sliderValue.FocusLost:Connect(function()
+            if tonumber(sliderValue.Text) < minValue then
+                sliderValue.Text = tostring(minValue)
+            end
+            if tonumber(sliderValue.Text) > maxValue then
+                sliderValue.Text = tostring(maxValue)
+            end
+        end)
+        return newSlider
+    end
+    return nil
 end
 
 function lib.createFrameText(labelName, frameName)
@@ -780,7 +799,9 @@ function lib.createFrameText(labelName, frameName)
 		newLabel.Name = tostring(labelName)
 		newLabel.Text = tostring(labelName)
 		newLabel.Parent = frame:WaitForChild("InnerFrame")
+        return newLabel
 	end
+    return nil
 end
 
 function lib.createFrameToggle(toggleName, frameName, defaultBool)
@@ -943,7 +964,9 @@ function lib.createFrameToggle(toggleName, frameName, defaultBool)
 			toggleBG.BackgroundColor3 = Color3.fromRGB(207, 207, 207)
 			toggleValue.Value = false
 		end
+        return newToggle
 	end
+    return nil
 end
 
 function lib.setVersion(versionNum)
@@ -970,7 +993,9 @@ function lib.createTab(tabName)
 		tab.Activated:Connect(function()
 			clickSound:Play()
 		end)
+        return tab
 	end
+    return nil
 end
 
 function lib.hideWindow()
